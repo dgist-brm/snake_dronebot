@@ -1,0 +1,7 @@
+Debug/
+.vs/
+x64/
+
+Snake_CMD_V1.vcxproj
+Snake_CMD_V1.vcxproj.filters
+Snake_CMD_V1.vcxproj.user

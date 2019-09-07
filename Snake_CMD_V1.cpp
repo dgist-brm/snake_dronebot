@@ -63,18 +63,18 @@ int main()
 			std::cout << Xstate.Gamepad.sThumbLY << std::endl;
 		}
 
-		//switch (robot.modes)
-		//{
-		//default:
-		//	count = 0;
-		//	enable_motor();
-		//	break;
+		switch (robot.modes)
+		{
+		default:
+			count = 0;
+			enable_motor();
+			break;
 
-		//case 0:
-		//	count = 0;
-		//	enable_motor();
-		//	break;
-		//}
+		case 0:
+			count = 0;
+			enable_motor();
+			break;
+		}
 		Sleep(100);
 	}
 

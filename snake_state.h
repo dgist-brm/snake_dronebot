@@ -31,3 +31,4 @@ void disable_motor();
 void set_speed_motor(int throttle);
 void ver_wave(robot_state *robot);
 void sidewind(robot_state* robot);
+void finding(robot_state* robot);

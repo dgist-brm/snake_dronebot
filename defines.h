@@ -1,27 +1,45 @@
 #pragma once
 
-//IDs of dynamixels
-#define DXL_ID1    48//head
-#define DXL_ID2    43//head
-#define DXL_ID3    49
-#define DXL_ID4    44
-#define DXL_ID5    50
-#define DXL_ID6    45
-#define DXL_ID7    36
-#define DXL_ID8    31
-#define DXL_ID9    37
-#define DXL_ID10   32
-#define DXL_ID11    28
-#define DXL_ID12    23
-#define DXL_ID13    29
-#define DXL_ID14    24
-#define DXL_ID15    46//tail
-#define DXL_ID16    25//tail
+////IDs of dynamixels
+//#define DXL_ID1    48//head
+//#define DXL_ID2    43//head
+//#define DXL_ID3    49
+//#define DXL_ID4    44
+//#define DXL_ID5    50
+//#define DXL_ID6    45
+//#define DXL_ID7    36
+//#define DXL_ID8    31
+//#define DXL_ID9    37
+//#define DXL_ID10   32
+//#define DXL_ID11    28
+//#define DXL_ID12    23
+//#define DXL_ID13    29
+//#define DXL_ID14    24
+//#define DXL_ID15    46//tail
+//#define DXL_ID16    25//tail
+
+#define DXL_ID1    19//head
+#define DXL_ID2    22//head
+#define DXL_ID3    21
+#define DXL_ID4    20
+#define DXL_ID5    8
+#define DXL_ID6    11
+#define DXL_ID7    17
+#define DXL_ID8    10
+#define DXL_ID9    12
+#define DXL_ID10   15
+#define DXL_ID11    9
+#define DXL_ID12    7
+#define DXL_ID13    16
+#define DXL_ID14    13
+#define DXL_ID15    14//tail
+#define DXL_ID16    33//tail
 
 
 #define ADDR_MX_TORQUE_ENABLE           24                  // Control table address is different in Dynamixel model
 #define ADDR_MX_GOAL_POSITION           30                 // Control table address is different in Dynamixel model
 #define ADDR_MX_GOAL_SPEED              32                 // Control table address is different in Dynamixel model
+#define ADDR_TOQUE_LIMIT				34
 #define ADDR_MX_PRESENT_POSITION        36                 // Control table address is different in Dynamixel model
 
 #define TORQUE_ENABLE                   1                   // Value for enabling the torque
@@ -42,10 +60,10 @@
 // Protocol version
 #define PROTOCOL_VERSION                1.0                 // See which protocol version is used in the Dynamixel
 #define BAUDRATE                        115200//1000000     // this should be same with baudrate of dynamixels
-#define DEVICENAME                      "COM4"      // Check which port is being used on your controller
-
+#define DEVICENAME                      "COM30"      // Check which port is being used on your controller
 // State Mode Define
 #define STOP_MODE 0
 #define V_MODE 1
 #define H_MODE 2
 #define SIDEWIND_MODE 3
+#define FIND_MODE 6

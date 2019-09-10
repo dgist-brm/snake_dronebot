@@ -57,8 +57,12 @@ int main()
 
 		DWORD Xresult;
 		Xresult = XInputGetState(0, &Xstate);
-
-		inputMode = buttonToMode(Xstate.Gamepad.wButtons);
+		
+		int tempmode = buttonToMode(Xstate.Gamepad.wButtons);
+		if (tempmode != 0)
+		{
+			inputMode = buttonToMode(Xstate.Gamepad.wButtons);
+		}
 
 		robot.throtle = analogToSpeed(Xstate.Gamepad.sThumbLY);
 		robot.heading = analogToSpeed(Xstate.Gamepad.sThumbLX);
@@ -99,6 +103,11 @@ int main()
 			disable_motor();
 			break;
 
+		case 6:
+			std::cout << "FINDING MODE" << std::endl;
+			finding(&robot);
+			break;
+
 		}
 
 		std::cout << analogToSpeed(Xstate.Gamepad.sThumbLX) << (Xstate.Gamepad.sThumbLY) << std::endl;
@@ -110,7 +119,7 @@ int main()
 		std::cout << tempb << std::endl;
 		std::cout << Xstate.Gamepad.wButtons << std::endl;
 
-		Sleep(100);
+		Sleep(10);
 	}
 
 }
@@ -152,4 +161,6 @@ int buttonToMode(WORD Buttons)
 		return 4;
 	else if (Buttons & XINPUT_GAMEPAD_BACK)
 		return 5;
+	else if (Buttons & XINPUT_GAMEPAD_LEFT_THUMB)
+		return 6;
 }

@@ -1,10 +1,5 @@
 #include "connection.h"
 
-int setComm(int port, int version, int baudrate)
-{
-
-	return 0;
-}
 
 int setComm(dynamixel::PortHandler *porth, dynamixel::PacketHandler *packh, const char* port, float version, int baudrate)
 {

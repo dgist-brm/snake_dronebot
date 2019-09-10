@@ -14,6 +14,8 @@ dynamixel::PortHandler* porth;
 dynamixel::PacketHandler* packh;
 
 XINPUT_STATE Xstate;
-robot_state robot;
+int inputMode;
+static robot_state robot;
 
-int count = 0;
+int analogToSpeed(short analog);
+int buttonToMode(WORD Buttons);

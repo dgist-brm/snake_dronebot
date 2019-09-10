@@ -45,4 +45,7 @@
 #define DEVICENAME                      "COM4"      // Check which port is being used on your controller
 
 // State Mode Define
-#define STOP_MODE 0;
+#define STOP_MODE 0
+#define V_MODE 1
+#define H_MODE 2
+#define SIDEWIND_MODE 3

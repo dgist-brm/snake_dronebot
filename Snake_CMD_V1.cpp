@@ -9,6 +9,7 @@ int main()
 	packh = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
 	robot.modes = 0;
+	robot.count = 0;
 	robot.heading = 0;
 	robot.throtle = 0;
 
@@ -57,24 +58,58 @@ int main()
 		DWORD Xresult;
 		Xresult = XInputGetState(0, &Xstate);
 
-		if (Xresult == ERROR_SUCCESS)
-		{
-			std::cout << Xstate.Gamepad.sThumbLX << std::endl;
-			std::cout << Xstate.Gamepad.sThumbLY << std::endl;
-		}
+		inputMode = buttonToMode(Xstate.Gamepad.wButtons);
 
-		switch (robot.modes)
+		robot.throtle = analogToSpeed(Xstate.Gamepad.sThumbLY);
+		robot.heading = analogToSpeed(Xstate.Gamepad.sThumbLX);
+
+		switch (inputMode)
 		{
-		default:
-			count = 0;
+		default: //STOP 모드
+			std::cout << "mode 0" << std::endl;
+			robot.modes = 0;
+			break;
+
+		case STOP_MODE: //STOP 모드
+			std::cout << "mode 0" << std::endl;
+			robot.modes = 0;
+			break;
+
+		case V_MODE: //자벌레 모드
+			std::cout << "VERTICAL WAVE MODE" << std::endl;
+			ver_wave(&robot);
+			break;
+
+		case 2:
+			std::cout << "mode 2" << std::endl;
+			break;
+
+		case SIDEWIND_MODE:
+			std::cout << "SIDE WINDING MODE" << std::endl;
+			sidewind(&robot);
+			break;
+
+		case 4:
+			std::cout << "ENABLE MOTOR" << std::endl;
 			enable_motor();
 			break;
 
-		case 0:
-			count = 0;
-			enable_motor();
+		case 5:
+			std::cout << "DISABLE MOTOR" << std::endl;
+			disable_motor();
 			break;
+
 		}
+
+		std::cout << analogToSpeed(Xstate.Gamepad.sThumbLX) << (Xstate.Gamepad.sThumbLY) << std::endl;
+
+		unsigned int tempa = Xstate.Gamepad.bLeftTrigger;
+		unsigned int tempb = Xstate.Gamepad.bRightTrigger;
+
+		std::cout << tempa << std::endl;
+		std::cout << tempb << std::endl;
+		std::cout << Xstate.Gamepad.wButtons << std::endl;
+
 		Sleep(100);
 	}
 
@@ -90,3 +125,31 @@ int main()
 //   4. [오류 목록] 창을 사용하여 오류를 봅니다.
 //   5. [프로젝트] > [새 항목 추가]로 이동하여 새 코드 파일을 만들거나, [프로젝트] > [기존 항목 추가]로 이동하여 기존 코드 파일을 프로젝트에 추가합니다.
 //   6. 나중에 이 프로젝트를 다시 열려면 [파일] > [열기] > [프로젝트]로 이동하고 .sln 파일을 선택합니다.
+
+int analogToSpeed(short analog)
+{
+	if (analog < 5000 && analog > -5000)
+		return 0;
+	else if (analog > 0)
+		return (analog - 5000) * 0.0036;
+	else if (analog <= 0)
+		return (analog + 5000) * 0.0036;
+	else
+		return 0;
+}
+
+int buttonToMode(WORD Buttons)
+{
+	if (Buttons & XINPUT_GAMEPAD_DPAD_UP)
+		return 0;
+	else if (Buttons & XINPUT_GAMEPAD_DPAD_DOWN)
+		return 1;
+	else if (Buttons & XINPUT_GAMEPAD_DPAD_LEFT)
+		return 2;
+	else if (Buttons & XINPUT_GAMEPAD_DPAD_RIGHT)
+		return 3;
+	else if (Buttons & XINPUT_GAMEPAD_START)
+		return 4;
+	else if (Buttons & XINPUT_GAMEPAD_BACK)
+		return 5;
+}

@@ -35,3 +35,5 @@ void ver_wave(robot_state *robot);
 void sidewind(robot_state* robot);
 void finding(robot_state* robot);
 void turning(robot_state* robot);
+void turning2(robot_state* robot);
+void sinuslift(robot_state* robot);

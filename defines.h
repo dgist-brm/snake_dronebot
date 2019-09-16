@@ -67,3 +67,4 @@
 #define TURN_MODE 2
 #define SIDEWIND_MODE 3
 #define FIND_MODE 6
+#define SINUSLIFT_MODE 8

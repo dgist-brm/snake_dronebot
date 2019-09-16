@@ -107,6 +107,16 @@ int main()
 			finding(&robot);
 			break;
 
+		case 7:
+			std::cout << "TURNING MODE 2" << std::endl;
+			turning2(&robot);
+			break;
+
+		case 8:
+			std::cout << "SINUS LEFT MODE" << std::endl;
+			sinuslift(&robot);
+			break;
+
 		}
 
 		std::cout << analogToSpeed(Xstate.Gamepad.sThumbLX) << (Xstate.Gamepad.sThumbLY) << std::endl;
@@ -162,4 +172,8 @@ int buttonToMode(WORD Buttons)
 		return 5;
 	else if (Buttons & XINPUT_GAMEPAD_LEFT_THUMB)
 		return 6;
+	else if (Buttons & XINPUT_GAMEPAD_RIGHT_THUMB)
+		return 7;
+	else if (Buttons & XINPUT_GAMEPAD_Y)
+		return 8;
 }

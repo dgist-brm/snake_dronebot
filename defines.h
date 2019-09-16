@@ -64,6 +64,6 @@
 // State Mode Define
 #define STOP_MODE 0
 #define V_MODE 1
-#define H_MODE 2
+#define TURN_MODE 2
 #define SIDEWIND_MODE 3
 #define FIND_MODE 6

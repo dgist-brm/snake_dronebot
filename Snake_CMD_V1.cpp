@@ -83,7 +83,8 @@ int main()
 			break;
 
 		case 2:
-			std::cout << "mode 2" << std::endl;
+			std::cout << "TURN MODE" << std::endl;
+			turning(&robot);
 			break;
 
 		case SIDEWIND_MODE:

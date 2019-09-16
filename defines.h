@@ -60,7 +60,7 @@
 // Protocol version
 #define PROTOCOL_VERSION                1.0                 // See which protocol version is used in the Dynamixel
 #define BAUDRATE                        115200//1000000     // this should be same with baudrate of dynamixels
-#define DEVICENAME                      "COM30"      // Check which port is being used on your controller
+#define DEVICENAME                      "COM21"      // Check which port is being used on your controller
 // State Mode Define
 #define STOP_MODE 0
 #define V_MODE 1

@@ -59,10 +59,8 @@ int main()
 		Xresult = XInputGetState(0, &Xstate);
 		
 		int tempmode = buttonToMode(Xstate.Gamepad.wButtons);
-		if (tempmode != 0)
-		{
-			inputMode = buttonToMode(Xstate.Gamepad.wButtons);
-		}
+
+		inputMode = buttonToMode(Xstate.Gamepad.wButtons);
 
 		robot.throtle = analogToSpeed(Xstate.Gamepad.sThumbLY);
 		robot.heading = analogToSpeed(Xstate.Gamepad.sThumbLX);
@@ -70,12 +68,12 @@ int main()
 		switch (inputMode)
 		{
 		default: //STOP 모드
-			std::cout << "mode 0" << std::endl;
+			std::cout << "STOP" << std::endl;
 			robot.modes = 0;
 			break;
 
 		case STOP_MODE: //STOP 모드
-			std::cout << "mode 0" << std::endl;
+			std::cout << "STOP" << std::endl;
 			robot.modes = 0;
 			break;
 
@@ -119,7 +117,7 @@ int main()
 		std::cout << tempb << std::endl;
 		std::cout << Xstate.Gamepad.wButtons << std::endl;
 
-		Sleep(10);
+		Sleep(5);
 	}
 
 }

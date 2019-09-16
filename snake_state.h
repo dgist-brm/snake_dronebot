@@ -18,6 +18,8 @@ struct robot_state
 	//
 	int throtle = 0;
 	int heading = 0;
+
+	int preheading = 0;
 };
 
 const double lag_ver = 2 * M_PI / 6;

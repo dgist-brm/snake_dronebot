@@ -3,6 +3,7 @@
 #include "connection.h"
 #include "dynamixel_sdk.h"
 #include <Windows.h>
+#include <ctime>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -11,6 +12,9 @@
 
 struct robot_state
 {
+	int boottime = 0;
+	int modetime = 0;
+
 	int modes = 0;
 	int count = 0;
 	//0 no action
@@ -37,3 +41,4 @@ void finding(robot_state* robot);
 void turning(robot_state* robot);
 void turning2(robot_state* robot);
 void sinuslift(robot_state* robot);
+void stopmode(robot_state* robot);

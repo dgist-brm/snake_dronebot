@@ -39,7 +39,9 @@ void ver_wave(robot_state *robot)
 	{
 		robot->modes = V_MODE;
 		robot->count = 0;
+		robot->modetime = time(0);
 
+		enable_motor();
 		packh->write2ByteTxOnly(porth, 0xFE, ADDR_MX_GOAL_POSITION, 512);
 	}
 
@@ -181,7 +183,10 @@ void sidewind(robot_state* robot)
 	if (robot->modes != SIDEWIND_MODE)
 	{
 		robot->modes = SIDEWIND_MODE;
+		robot->modetime = time(0);
 		robot->count = 0;
+
+		enable_motor();
 	}
 
 	set_speed_motor(robot->throtle);
@@ -314,6 +319,9 @@ void finding(robot_state* robot)
 	{
 		robot->modes = FIND_MODE;
 		robot->count = 0;
+		robot->modetime = time(0);
+
+		enable_motor();
 		set_speed_motor(150);
 
 	}
@@ -350,7 +358,9 @@ void turning(robot_state* robot)
 	{
 		robot->modes = TURN_MODE;
 		robot->count = 0;
+		robot->modetime = time(0);
 
+		enable_motor();
 		packh->write2ByteTxOnly(porth, 0xFE, ADDR_MX_GOAL_POSITION, 512);
 	}
 	if(robot->count < 31)
@@ -444,22 +454,10 @@ void turning2(robot_state* robot)
 	{
 		robot->modes = TURN_MODE;
 		robot->count = 0;
+		robot->modetime = time(0);
 
-		packh->write2ByteTxOnly(porth, DXL_ID1, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID2, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID3, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID4, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID5, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID6, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID7, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID8, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID9, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID10, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID11, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID12, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID13, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID14, ADDR_MX_GOAL_POSITION, 512);
-		packh->write2ByteTxOnly(porth, DXL_ID15, ADDR_MX_GOAL_POSITION, 512);
+		enable_motor();
+		packh->write2ByteTxOnly(porth, 0xFE, ADDR_MX_GOAL_POSITION, 512);
 	}
 
 	set_speed_motor(robot->throtle);
@@ -520,8 +518,12 @@ void sinuslift(robot_state* robot)
 	if (robot->modes != SINUSLIFT_MODE)
 	{
 		robot->modes = SINUSLIFT_MODE;
-		packh->write2ByteTxOnly(porth, 0xFE, ADDR_MX_GOAL_POSITION, 512);
+		robot->modetime = time(0);
 		robot->count = 0;
+
+		enable_motor();
+		packh->write2ByteTxOnly(porth, 0xFE, ADDR_MX_GOAL_POSITION, 512);
+		
 	}
 
 	int amp_hor_s = (200 * robot->throtle) / 100;
@@ -538,7 +540,7 @@ void sinuslift(robot_state* robot)
 	}
 	else
 	{
-		bias = -0.75 * robot->heading;
+		bias = -0.55 * robot->heading;
 	}
 
 
@@ -590,4 +592,16 @@ void sinuslift(robot_state* robot)
 	Sleep(delaytime);
 
 	robot->count++;
+}
+
+void stopmode(robot_state* robot)
+{
+	if (robot->modes != STOP_MODE)
+	{
+		robot->modes = STOP_MODE;
+		robot->modetime = time(0);
+		robot->count = 0;
+
+		packh->write1ByteTxOnly(porth, 0xFE, ADDR_MX_TORQUE_ENABLE, TORQUE_DISABLE);
+	}
 }

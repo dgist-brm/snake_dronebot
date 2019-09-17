@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <Windows.h>
 #include <Xinput.h>
+#include <ctime>
 
 #include "connection.h"
 #include "defines.h"

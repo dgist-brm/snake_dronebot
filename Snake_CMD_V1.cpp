@@ -8,6 +8,8 @@ int main()
 	porth->setBaudRate(BAUDRATE);
 	packh = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
 
+	robot.boottime = time(0);
+	robot.modetime = time(0);
 	robot.modes = 0;
 	robot.count = 0;
 	robot.heading = 0;
@@ -54,6 +56,7 @@ int main()
 		system("cls");
 		std::cout << "Snake CMD commander V1\n";
 		std::cout << "Command Now \n";
+		std::cout << "Operation Time : " << time(0) - robot.boottime << "sec" << std::endl;
 
 		DWORD Xresult;
 		Xresult = XInputGetState(0, &Xstate);
@@ -68,65 +71,58 @@ int main()
 		switch (inputMode)
 		{
 		default: //STOP 모드
-			std::cout << "STOP" << std::endl;
-			robot.modes = 0;
+			std::cout << "Operation mode : STOP" << std::endl;
+			stopmode(&robot);
 			break;
 
 		case STOP_MODE: //STOP 모드
-			std::cout << "STOP" << std::endl;
-			robot.modes = 0;
+			std::cout << "Operation mode : STOP" << std::endl;
+			stopmode(&robot);
 			break;
 
 		case V_MODE: //자벌레 모드
-			std::cout << "VERTICAL WAVE MODE" << std::endl;
+			std::cout << "Operation mode : VERTICAL WAVE MODE" << std::endl;
 			ver_wave(&robot);
 			break;
 
 		case 2:
-			std::cout << "TURN MODE" << std::endl;
+			std::cout << "Operation mode : TURN MODE" << std::endl;
 			turning(&robot);
 			break;
 
 		case SIDEWIND_MODE:
-			std::cout << "SIDE WINDING MODE" << std::endl;
+			std::cout << "Operation mode : SIDE WINDING MODE" << std::endl;
 			sidewind(&robot);
 			break;
 
 		case 4:
-			std::cout << "ENABLE MOTOR" << std::endl;
+			std::cout << "Operation mode : ENABLE MOTOR" << std::endl;
 			enable_motor();
 			break;
 
 		case 5:
-			std::cout << "DISABLE MOTOR" << std::endl;
+			std::cout << "Operation mode : DISABLE MOTOR" << std::endl;
 			disable_motor();
 			break;
 
 		case 6:
-			std::cout << "FINDING MODE" << std::endl;
+			std::cout << "Operation mode : FINDING MODE" << std::endl;
 			finding(&robot);
 			break;
 
 		case 7:
-			std::cout << "TURNING MODE 2" << std::endl;
+			std::cout << "Operation mode : TURNING MODE 2" << std::endl;
 			turning2(&robot);
 			break;
 
 		case 8:
-			std::cout << "SINUS LEFT MODE" << std::endl;
+			std::cout << "Operation mode : SINUS LEFT MODE" << std::endl;
 			sinuslift(&robot);
 			break;
 
 		}
 
-		std::cout << analogToSpeed(Xstate.Gamepad.sThumbLX) << (Xstate.Gamepad.sThumbLY) << std::endl;
-
-		unsigned int tempa = Xstate.Gamepad.bLeftTrigger;
-		unsigned int tempb = Xstate.Gamepad.bRightTrigger;
-
-		std::cout << tempa << std::endl;
-		std::cout << tempb << std::endl;
-		std::cout << Xstate.Gamepad.wButtons << std::endl;
+		std::cout << "Mode time : " << time(0) - robot.modetime << "sec" << std::endl;
 
 		Sleep(5);
 	}

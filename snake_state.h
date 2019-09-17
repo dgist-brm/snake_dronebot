@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning(disable:4996)
+
 #include "defines.h"
 #include "connection.h"
 #include "dynamixel_sdk.h"
@@ -12,8 +14,8 @@
 
 struct robot_state
 {
-	int boottime = 0;
-	int modetime = 0;
+	time_t boottime = 0;
+	time_t modetime = 0;
 
 	int modes = 0;
 	int count = 0;

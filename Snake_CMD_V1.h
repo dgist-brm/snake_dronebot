@@ -5,6 +5,8 @@
 #include <Windows.h>
 #include <Xinput.h>
 #include <ctime>
+#include <fstream>
+#include <string>
 
 #include "connection.h"
 #include "defines.h"
@@ -16,6 +18,10 @@ dynamixel::PacketHandler* packh;
 
 XINPUT_STATE Xstate;
 int inputMode;
+int boot_time = 0;
+int mode_time = 0;
+bool isLogged;
+
 static robot_state robot;
 
 int analogToSpeed(short analog);

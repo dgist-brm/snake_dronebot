@@ -4,6 +4,7 @@
 
 int main()
 {
+	clock_t boot_c;
 	porth = dynamixel::PortHandler::getPortHandler(DEVICENAME);
 	porth->setBaudRate(BAUDRATE);
 	packh = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION);
@@ -16,6 +17,17 @@ int main()
 	robot.throtle = 0;
 
 	ZeroMemory(&Xstate, sizeof(XINPUT_STATE));
+
+	//std::ofstream out;
+
+	//out.open("log.txt", std::ios::app);
+
+	//if (out.is_open())
+	//{
+	//	out << "Logging start at : " <<ctime(&robot.boottime) << std::endl;
+	//	out.close();
+	//}
+
 
     std::cout << "Snake CMD commander V1\n";
 	std::cout << "Initiating Port\n";
@@ -56,7 +68,9 @@ int main()
 		system("cls");
 		std::cout << "Snake CMD commander V1\n";
 		std::cout << "Command Now \n";
-		std::cout << "Operation Time : " << time(0) - robot.boottime << "sec" << std::endl;
+
+		boot_time = time(0) - robot.boottime;
+		std::cout << "Operation Time : " << boot_time << "sec" << std::endl;
 
 		DWORD Xresult;
 		Xresult = XInputGetState(0, &Xstate);
@@ -122,9 +136,25 @@ int main()
 
 		}
 
-		std::cout << "Mode time : " << time(0) - robot.modetime << "sec" << std::endl;
+		mode_time = time(0) - robot.modetime;
+		std::cout << "Mode time : " << mode_time << "sec" << std::endl;
 
-		Sleep(5);
+		//if (boot_time % 2 == 0 && isLogged == false)
+		//{
+		//	out.open("log.txt", std::ios::app);
+		//	if (out.is_open())
+		//	{
+		//		out << boot_c << "\t" << boot_time << "\t" << robot.modes << "\t" << mode_time << "\t" << robot.throtle << "\t" << robot.heading << std::endl;
+		//		out.close();
+		//	}
+		//	isLogged = true;
+		//}
+		//else
+		//{
+		//	isLogged = false;
+		//}
+
+		Sleep(3);
 	}
 
 }
